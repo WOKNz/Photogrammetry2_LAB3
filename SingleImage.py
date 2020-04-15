@@ -766,6 +766,38 @@ class SingleImage(object):
         """
         return self.camera.sensorSize * scale
 
+    def GeneratePointsImg(self, n, ppa):
+        """
+        Generating grid of points biased by ppa (principal point delta)
+        :param n: number of points for each axis
+        :param ppa:
+        :return:
+        """
+        x = np.linspace(0,self.camera.sensorSize,n)+ppa[0]
+        y = np.linspace(0,self.camera.sensorSize,n)+ppa[1]
+
+        return np.meshgrid(x, y)
+
+    def LinePlaneCollision(planeNormal, planePoint, rayDirection, rayPoint, epsilon=1e-12):
+        """
+        Calculates ray intersection point with plane
+
+        :param planePoint:
+        :param rayDirection:
+        :param rayPoint:
+        :param epsilon:
+        :return: intersect point on plane
+        :rtype: np.ndarray (1x3)
+        """
+
+        ndotu = planeNormal.dot(rayDirection)
+        if abs(ndotu) < epsilon:
+            raise RuntimeError("no intersection or line is within plane")
+
+        w = rayPoint - planePoint
+        si = -planeNormal.dot(w) / ndotu
+        Psi = w + si * rayDirection + planePoint
+        return Psi
 
     # ---------------------- Private methods ----------------------
 
