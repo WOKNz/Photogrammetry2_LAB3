@@ -1,6 +1,13 @@
 # Pycharm
 .idea
 
+#VSC
+.vscode
+
+# Sphinx
+docs
+!/docs/_build/html
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
