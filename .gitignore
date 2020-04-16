@@ -6,7 +6,8 @@
 
 # Sphinx
 docs
-!/docs/_build/html
+!/docs/_build/html/*.html
+!/docs/_build/html/*.js
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
